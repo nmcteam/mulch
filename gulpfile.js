@@ -76,7 +76,7 @@ gulp.task('scripts', function(){
 
 gulp.task('mulch-compile',['less','scripts','twig']);
 
-gulp.task('mulch-watch',['mulch-compile','browser-sync'],function(){
+gulp.task('mulch',['mulch-compile','browser-sync'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
     gulp.watch("src/scripts/**/*.js", ['scripts']);
     gulp.watch('src/data/*.json',['data']);

@@ -2,7 +2,7 @@
 
 # Mulch
 
-Mulch is a Gulp recipe that features Twig, LESS/SASS, JS compilation and BrowserSync. It's a great starting point for frontend projects that run on PHP backends that use Twig. (Craft CMS, Drupal 8, Symfony, HiFi, etc). It makes it easy to develop the frontend of those projects without running a whole server. Because it has BrowserSync, as soon as changes are made to your source files, those are instantly reflected in the browser without the need to click refresh!
+Mulch is a gulp recipe for compiling twig templates and preprocessor styles and then serving the compiled site while developing. It features Twig (twig.js, with designed-in support for JSON data retrieval), LESS/SASS, CSS minification, JS compilation and BrowserSync. It's a great starting point for frontend projects that run on PHP backends that use Twig. (Craft CMS, Drupal 8, Symfony, HiFi, etc). It makes it easy to develop the frontend of those projects without running a whole server. Because it has BrowserSync, as soon as changes are made to your source files, those are instantly reflected in the browser without the need to click refresh!
 
 ## How to install
 
@@ -16,7 +16,7 @@ This will install all of the dependencies. (The sudo is likely just required for
 
 A single line will get you up and running.
 
-`gulp mulch-watch`
+`gulp mulch`
 
 This will compile all of the assets and launch BrowserSync. Your browser should open and display the "Hello World" page. While this is running all of your project assets will be watched and as soon as they are changed you'll see the changes in your browser!.
 
@@ -25,7 +25,7 @@ This will compile all of the assets and launch BrowserSync. Your browser should 
 There are two main folders in the project:
 
 * src - This holds all of your source files. Some sample ones are in place.
-* compiled - Once you execute mulch-watch this will be created and it holds all of the compiled assets and html pages. This is also where BrowserSync looks to serve content. If you need images, you'll need to put them in here.
+* compiled - Once you execute mulch this will be created and it holds all of the compiled assets and html pages. This is also where BrowserSync looks to serve content. If you need images, you'll need to put them in here.
 
 ### Twig Structure
 
@@ -53,4 +53,4 @@ Each sub-task is available via gulp if you wish to run them independently. They 
 * less - Compiles LESS files
 * scripts - Compiles all scripts
 * mulch-compile - Compiles all assets in the correct order. Useful if you're using this recipe without BrowserSync
-* mulch-watch - Compiles all assets, launches BrowserSync and then watches files for changes
+* mulch - Compiles all assets, launches BrowserSync and then watches files for changes
