@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     jsoncombine = require('gulp-jsoncombine'),
     browserSync = require('browser-sync');
 
+
 gulp.task('browser-sync', function() {
   	browserSync.init({
   		server: {
@@ -31,7 +32,7 @@ gulp.task('data',function(){
          .pipe(gulp.dest('src/'));
 });
 
-gulp.task('twig',function(){
+gulp.task('twig',['data'],function(){
     var dataPath = './src/_compiled.json';
     delete require.cache[require.resolve(dataPath)];
     var data = require(dataPath);
@@ -73,11 +74,9 @@ gulp.task('scripts', function(){
     .pipe(browserSync.reload({stream:true}))
 });
 
-gulp.task('default',['less','scripts','data','twig']);
+gulp.task('mulch-compile',['less','scripts','twig']);
 
-gulp.task('init',['less','scripts','data']);
-
-gulp.task('watch',['twig','browser-sync'],function(){
+gulp.task('mulch-watch',['mulch-compile','browser-sync'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
     gulp.watch("src/scripts/**/*.js", ['scripts']);
     gulp.watch('src/data/*.json',['data']);
