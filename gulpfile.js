@@ -12,7 +12,6 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     twig = require('gulp-twig'),
     foreach = require('gulp-foreach'),
-    jsoncombine = require('gulp-jsoncombine'),
     browserSync = require('browser-sync');
 
 
