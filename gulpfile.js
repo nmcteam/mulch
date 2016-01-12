@@ -73,7 +73,9 @@ gulp.task('scripts', function(){
     .pipe(browserSync.reload({stream:true}))
 });
 
-gulp.task('default',['less','scripts','twig']);
+gulp.task('default',['less','scripts','data','twig']);
+
+gulp.task('init',['default','watch']);
 
 gulp.task('watch',['browser-sync'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
