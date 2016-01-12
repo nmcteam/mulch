@@ -75,9 +75,9 @@ gulp.task('scripts', function(){
 
 gulp.task('default',['less','scripts','data','twig']);
 
-gulp.task('init',['default','watch']);
+gulp.task('init',['less','scripts','data']);
 
-gulp.task('watch',['browser-sync'],function(){
+gulp.task('watch',['twig','browser-sync'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
     gulp.watch("src/scripts/**/*.js", ['scripts']);
     gulp.watch('src/data/*.json',['data']);
