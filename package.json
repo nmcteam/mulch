@@ -6,10 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com:nmcteam/mulch.git"
-  },
   "author": "Joel Sutherland",
   "license": "MIT",
   "homepage": "https://github.com/nmcteam/mulch#readme",
