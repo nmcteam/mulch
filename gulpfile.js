@@ -1,5 +1,9 @@
 // Requires
 var gulp = require('gulp'),
+    fs = require('fs'),
+    glob = require('glob'),
+    path = require('path'),
+    data = require('gulp-data'),
     plumber = require('gulp-plumber'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
@@ -24,22 +28,25 @@ gulp.task('bs-reload', function () {
   browserSync.reload();
 });
 
-gulp.task('data',function(){
-    return gulp.src("src/data/*.json")
-        .pipe(jsoncombine("_compiled.json",function(data){
-            return new Buffer(JSON.stringify(data));
-         }))
-         .pipe(gulp.dest('src/'));
-});
+function getJsonData (file, cb) {
+    glob("src/data/*.json", {}, function(err, files) {
+        var data = {};
+        if (files.length) {
+            files.forEach(function(fPath){
+                var baseName = path.basename(fPath, '.json');
+                data[baseName] = JSON.parse(fs.readFileSync(fPath));
+            });
+        }
+        cb(undefined, data);
+    });
+}
 
-gulp.task('twig',['data'],function(){
-    var dataPath = './src/_compiled.json';
-    delete require.cache[require.resolve(dataPath)];
-    var data = require(dataPath);
+gulp.task('twig',function(){
     return gulp.src('src/templates/urls/**/*.html')
+        .pipe(data(getJsonData))
         .pipe(foreach(function(stream,file){
             return stream
-                .pipe(twig({data: data}))
+                .pipe(twig())
         }))
         .pipe(gulp.dest('compiled/'))
         .pipe(browserSync.reload({stream:true}));
