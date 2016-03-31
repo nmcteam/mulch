@@ -16,17 +16,34 @@ var gulp = require('gulp'),
 
 
 gulp.task('browser-sync', function() {
-  	browserSync.init({
-  		server: {
-  			baseDir: 'compiled/'
-  		}
-  	})
+    browserSync.init({
+        server: {
+            baseDir: 'compiled/'
+        }
+    })
 });
 
 gulp.task('bs-reload', function () {
-  browserSync.reload();
+   browserSync.reload();  
 });
 
+/* LESS */
+gulp.task('less', function(){
+  gulp.src(['src/less/all.less'])
+    .pipe(plumber({
+      errorHandler: function (error) {
+        console.log(error.message);
+        this.emit('end');
+    }}))
+    .pipe(less())
+    .pipe(concat('all.min.css'))
+    .pipe(minifycss())
+    .pipe(gulp.dest('compiled/styles/'))
+    .pipe(browserSync.reload({stream:true}))
+});
+
+
+/* Twig Templates */
 function getJsonData (file, cb) {
     glob("src/data/*.json", {}, function(err, files) {
         var data = {};
@@ -39,7 +56,6 @@ function getJsonData (file, cb) {
         cb(undefined, data);
     });
 }
-
 gulp.task('twig',function(){
     return gulp.src('src/templates/urls/**/*.html')
         .pipe(data(getJsonData))
@@ -47,26 +63,12 @@ gulp.task('twig',function(){
             return stream
                 .pipe(twig())
         }))
-        .pipe(gulp.dest('compiled/'))
-        .pipe(browserSync.reload({stream:true}));
+        .pipe(gulp.dest('compiled/'));
 });
+gulp.task('twig-watch',['twig'],browserSync.reload);
 
 
-gulp.task('less', function(){
-  gulp.src(['src/less/all.less'])
-    .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error.message);
-        this.emit('end');
-    }}))
-    .pipe(less())
-    .pipe(concat('all.min.css'))
-    //.pipe(rename({suffix: '.min'}))
-    .pipe(minifycss())
-    .pipe(gulp.dest('compiled/styles/'))
-    .pipe(browserSync.reload({stream:true}))
-});
-
+/* Scripts */
 gulp.task('scripts', function(){
   return gulp.src(['src/scripts/libs/*.js','src/scripts/*.js'])
     .pipe(plumber({
@@ -76,16 +78,17 @@ gulp.task('scripts', function(){
     }}))
     .pipe(concat('all.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('compiled/scripts/'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(gulp.dest('compiled/scripts/'));
 });
+gulp.task('scripts-watch',['scripts'],browserSync.reload);
 
+
+/* Mulch */
 gulp.task('mulch-compile',['less','scripts','twig']);
 
 gulp.task('mulch',['mulch-compile','browser-sync'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
-    gulp.watch("src/scripts/**/*.js", ['scripts']);
+    gulp.watch("src/scripts/**/*.js", ['scripts-watch']);
     gulp.watch('src/data/*.json',['data']);
-    gulp.watch(['src/templates/**/*.html','src/_compiled.json'],['twig']);
-    gulp.watch("compiled/**/*.html",['bs-reload']);
+    gulp.watch(['src/templates/**/*.html','src/_compiled.json'],['twig-watch']);
 });
