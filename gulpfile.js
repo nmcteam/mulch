@@ -58,6 +58,11 @@ function getJsonData (file, cb) {
 }
 gulp.task('twig',function(){
     return gulp.src('src/templates/urls/**/*.html')
+        .pipe(plumber({
+          errorHandler: function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }}))
         .pipe(data(getJsonData))
         .pipe(foreach(function(stream,file){
             return stream
