@@ -94,6 +94,5 @@ gulp.task('mulch-compile',['less','scripts','twig']);
 gulp.task('mulch',['mulch-compile','browser-sync'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
     gulp.watch("src/scripts/**/*.js", ['scripts-watch']);
-    gulp.watch('src/data/*.json',['data']);
-    gulp.watch(['src/templates/**/*.html','src/_compiled.json'],['twig-watch']);
+    gulp.watch(['src/templates/**/*.html','src/data/*.json'],['twig-watch']);
 });
