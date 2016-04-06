@@ -6,19 +6,24 @@ Mulch is a gulp recipe for compiling twig templates and preprocessor styles and 
 
 ## How to install
 
-To install Mulch, you'll first need to install Node. Once that is installed, two simple lines get it running:
+You'll first need to install Node (if you don't know whether or not you have node, run `node -v`). Once that is installed, `cd` to Mulch's directory and run
 
-`sudo npm install`
+`npm install`
 
-This will install all of the dependencies. (The sudo is likely just required for the BrowserSync installation. Some assistance in removing this requirement would be awesome.)
+to install all of Mulch's dependencies.
+
+Note that OSX users may need to run it as `sudo npm install` (you'll know because you'll get "try again as sudo" errors). For info on removing the sudo requirement from node package installation in OSX, check out [
+How to use npm global without sudo on OSX](http://www.johnpapa.net/how-to-use-npm-global-without-sudo-on-osx/) by [@joshpapa](https://github.com/johnpapa)
 
 ## How to use
 
-A single line will get you up and running.
+A single line will get Mulch up and running. `cd`'d to Mulch's directory, run
 
 `gulp mulch`
 
-This will compile all of the assets and launch BrowserSync. Your browser should open and display the "Hello World" page. While this is running all of your project assets will be watched and as soon as they are changed you'll see the changes in your browser!.
+This will compile all of the assets and launch BrowserSync. Your browser should open and display the src/templates/urls/index.html page (now compiled to compiled/index.html).
+
+For as long as you leave this process running, all of your project assets will be watched and as soon as they are changed you'll see the changes in your browser!
 
 ## Project Structure
 
@@ -29,28 +34,27 @@ There are two main folders in the project:
 
 ### Twig Structure
 
-The most interesting folder in src is "templates". This is where all the twig templates go. Inside this directory is a "urls" folder. Every template in this folder will be treated as an accessible URL by BrowserSync once things are compiled. So if you want a /about.html page, create "templates/urls/about.html". It also uses subfolders correctly so "templates/urls/about/team.html" will show up at /about/team.html.
+The most interesting folder in src is "templates". This is where all the twig templates go. Inside this directory is a "urls" folder. Every template in this folder will be treated as an accessible URL by BrowserSync once things are compiled. So if you want an /about.html page, create "templates/urls/about.html". It also uses subfolders correctly so "templates/urls/about/team.html" will show up at /about/team.html.
 
 ### Data Folder
 
 This folder can contain any number of valid json files. These will be made available to all twig templates indexed against their filename. So a file named "foo.json" would be available in the templates with {{ foo }}. This is a helpful way to inject/use some data from a project you are mocking up.
 
-### LESS/SASS Folders
+### LESS Folder
 
-Depending on which you are using, the target file will be all.less or all.scss. This should include any other files you wish to use.
+The target file will be the top-level all.less. This can @include any other files you wish to use.
 
 ### Scripts Folder
 
-All scripts in the scripts folder are compiled and minified. The scripts in the libs subdirectory are added first.
+All scripts in the scripts folder are compiled and minified, in alphabetical order. The scripts in the /libs subdirectory are added first.
 
-## Other commands
+## All commands
 
 Each sub-task is available via gulp if you wish to run them independently. They are:
 
-* browser-sync - Launches BrowserSync
-* data - Compiles all json data files
-* twig - Compiles twig templates _after_ data is run
-* less - Compiles LESS files
-* scripts - Compiles all scripts
-* mulch-compile - Compiles all assets in the correct order. Useful if you're using this recipe without BrowserSync
-* mulch - Compiles all assets, launches BrowserSync and then watches files for changes
+* **browser-sync** - Launches BrowserSync
+* **twig** - Compiles all json data files, and then compiles all twig templates
+* **less** - Compiles LESS files
+* **scripts** - Compiles all scripts
+* **mulch-compile** - Compiles all assets in the correct order (less, scripts, twig). Useful if you're using this recipe without BrowserSync
+* **mulch** - Compiles all assets, launches BrowserSync and then watches files for changes
