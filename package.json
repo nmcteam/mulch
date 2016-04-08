@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "browser-sync": "^2.10.0",
-    "glob": "^6.0.4",
+    "glob": "^7.0.3",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-data": "^1.2.1",
@@ -27,7 +27,7 @@
     "gulp-minify-css": "^1.2.1",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-twig": "^0.4.0",
+    "gulp-twig": "^0.5.0",
     "gulp-uglify": "^1.5.1"
   }
 }
