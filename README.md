@@ -19,7 +19,7 @@ How to use npm global without sudo on OSX](http://www.johnpapa.net/how-to-use-np
 
 A single line will get Mulch up and running. `cd`'d to Mulch's directory, run
 
-`gulp mulch`
+`gulp mulch` (and "Options", below)
 
 This will compile all of the assets and launch BrowserSync. Your browser should open and display the src/templates/urls/index.html page (now compiled to compiled/index.html).
 
@@ -40,9 +40,9 @@ The most interesting folder in src is "templates". This is where all the twig te
 
 This folder can contain any number of valid json files. These will be made available to all twig templates indexed against their filename. So a file named "foo.json" would be available in the templates with {{ foo }}. This is a helpful way to inject/use some data from a project you are mocking up.
 
-### LESS Folder
+### Styles Folder
 
-The target file will be the top-level all.less. This can @include any other files you wish to use.
+The target file will be the top-level all.less, all.scss, or all.sass. This can @include any other files you wish to use. By default (`gulp mulch`), all.less will be used; override this by running `gulp sass mulch` or `gulp scss mulch`.
 
 ### Scripts Folder
 
@@ -54,7 +54,12 @@ Each sub-task is available via gulp if you wish to run them independently. They 
 
 * **browser-sync** - Launches BrowserSync
 * **twig** - Compiles all json data files, and then compiles all twig templates
-* **less** - Compiles LESS files
+* **styles** - Compiles stylesheet files
 * **scripts** - Compiles all scripts
 * **mulch-compile** - Compiles all assets in the correct order (less, scripts, twig). Useful if you're using this recipe without BrowserSync
 * **mulch** - Compiles all assets, launches BrowserSync and then watches files for changes
+
+###Options
+These commands are pseudo-options. Run just one, before **mulch** (`gulp option mulch`)
+* **sass** - Tells mulch to use src/styles/all.sass
+* **sass** - Tells mulch to use src/styles/all.scss
