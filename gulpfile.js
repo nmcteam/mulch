@@ -1,21 +1,22 @@
 // Requires
-var gulp = require('gulp'),
-    fs = require('fs'),
-    glob = require('glob'),
+var fs = require('fs'),
     path = require('path'),
+
+    browserSync = require('browser-sync'), // node packages
+    glob = require('glob'),
+    gulp = require('gulp'),
+    concat = require('gulp-concat'),
     data = require('gulp-data'),
+    foreach = require('gulp-foreach'),
+    less = require('gulp-less'),
+    minifycss = require('gulp-minify-css'),
     plumber = require('gulp-plumber'),
     rename = require('gulp-rename'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    minifycss = require('gulp-minify-css'),
-    less = require('gulp-less'),
-    twig = require('gulp-twig'),
-    foreach = require('gulp-foreach'),
-    browserSync = require('browser-sync'),
     sass = require('gulp-sass'),
+    twig = require('gulp-twig'),
+    uglify = require('gulp-uglify'),
     runSequence = require('run-sequence'),
-    lazypipe = require('lazypipe'),
+    lazypipe = require('lazypipe')
 
     flags = {
         preprocessor: 'less'
