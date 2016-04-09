@@ -19,7 +19,7 @@ How to use npm global without sudo on OSX](http://www.johnpapa.net/how-to-use-np
 
 A single line will get Mulch up and running. `cd`'d to Mulch's directory, run
 
-`gulp mulch` (and "Options", below)
+`gulp mulch` (and see "Options", below)
 
 This will compile all of the assets and launch BrowserSync. Your browser should open and display the src/templates/urls/index.html page (now compiled to compiled/index.html).
 
