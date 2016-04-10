@@ -38,13 +38,13 @@ gulp.task('bs-reload', function () {
 
 
 /* Styles */
-var mulchStyles = lazypipe()
+var mulchCompiledStyles = lazypipe()
     .pipe(concat, 'all.min.css')
     .pipe(minifycss)
     .pipe(gulp.dest, 'compiled/styles/')
     .pipe(browserSync.reload, { stream: true })
 ;
-gulp.task('styles-css', function(){
+gulp.task('styles-css', function(){ // css (choose by running `gulp css mulch`)
   gulp.src('src/styles/all.css')
     .pipe(plumber({
       errorHandler: function (error) {
@@ -52,9 +52,9 @@ gulp.task('styles-css', function(){
         this.emit('end');
     }}))
     .pipe(less())
-    .pipe(mulchStyles())
+    .pipe(mulchCompiledStyles())
 });
-gulp.task('styles-less', function(){
+gulp.task('styles-less', function(){ // less (default)
   gulp.src('src/styles/all.less')
     .pipe(plumber({
       errorHandler: function (error) {
@@ -62,7 +62,7 @@ gulp.task('styles-less', function(){
         this.emit('end');
     }}))
     .pipe(less())
-    .pipe(mulchStyles())
+    .pipe(mulchCompiledStyles())
 });
 gulp.task('styles-sass', function() { // sass (choose by running 'gulp sass mulch')
     gulp.src('src/styles/all.sass')
@@ -73,7 +73,7 @@ gulp.task('styles-sass', function() { // sass (choose by running 'gulp sass mulc
             }
         }))
         .pipe(sass())
-        .pipe(mulchStyles())
+        .pipe(mulchCompiledStyles())
 });
 gulp.task('styles-scss', function() { // sass (choose by running 'gulp sass mulch')
     gulp.src('src/styles/all.scss')
@@ -84,7 +84,7 @@ gulp.task('styles-scss', function() { // sass (choose by running 'gulp sass mulc
             }
         }))
         .pipe(sass())
-        .pipe(mulchStyles())
+        .pipe(mulchCompiledStyles())
 });
 gulp.task('css', function () {
     flags.preprocessor = 'css'
