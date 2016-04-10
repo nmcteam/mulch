@@ -44,6 +44,16 @@ var mulchStyles = lazypipe()
     .pipe(gulp.dest, 'compiled/styles/')
     .pipe(browserSync.reload, { stream: true })
 ;
+gulp.task('styles-css', function(){
+  gulp.src('src/styles/all.css')
+    .pipe(plumber({
+      errorHandler: function (error) {
+        console.log(error.message);
+        this.emit('end');
+    }}))
+    .pipe(less())
+    .pipe(mulchStyles())
+});
 gulp.task('styles-less', function(){
   gulp.src('src/styles/all.less')
     .pipe(plumber({
@@ -53,17 +63,6 @@ gulp.task('styles-less', function(){
     }}))
     .pipe(less())
     .pipe(mulchStyles())
-});
-gulp.task('styles-scss', function() { // sass (choose by running 'gulp sass mulch')
-    gulp.src('src/styles/all.scss')
-        .pipe(plumber({
-            errorHandler: function(error) {
-                console.log(error.message);
-                this.emit('end');
-            }
-        }))
-        .pipe(sass())
-        .pipe(mulchStyles())
 });
 gulp.task('styles-sass', function() { // sass (choose by running 'gulp sass mulch')
     gulp.src('src/styles/all.sass')
@@ -76,16 +75,32 @@ gulp.task('styles-sass', function() { // sass (choose by running 'gulp sass mulc
         .pipe(sass())
         .pipe(mulchStyles())
 });
-gulp.task('scss', function () {
-    flags.preprocessor = 'scss'
+gulp.task('styles-scss', function() { // sass (choose by running 'gulp sass mulch')
+    gulp.src('src/styles/all.scss')
+        .pipe(plumber({
+            errorHandler: function(error) {
+                console.log(error.message);
+                this.emit('end');
+            }
+        }))
+        .pipe(sass())
+        .pipe(mulchStyles())
+});
+gulp.task('css', function () {
+    flags.preprocessor = 'css'
 });
 gulp.task('sass', function () {
     flags.preprocessor = 'sass'
 });
+gulp.task('scss', function () {
+    flags.preprocessor = 'scss'
+});
 gulp.task('styles', function() {
-    if ( flags.preprocessor == 'scss' ) {
-        runSequence('styles-scss')
-    } else if (flags.preprocessor == 'sass') {
+    if ( flags.preprocessor == 'css' ) {
+        runSequence('styles-css')
+    } else if ( flags.preprocessor == 'sass' ) {
+        runSequence('styles-sass')
+    } else if (flags.preprocessor == 'scss') {
         runSequence('styles-sass')
     } else {
         runSequence('styles-less')
@@ -143,7 +158,7 @@ gulp.task('scripts-watch',['scripts'],browserSync.reload);
 gulp.task('mulch-compile',['styles','scripts','twig']);
 
 gulp.task('mulch',['mulch-compile','browser-sync'],function(less){
-    gulp.watch('src/styles/**/*.+(less|scss|sass)', ['styles-watch']);
+    gulp.watch('src/styles/**/*.+(css|less|sass|scss)', ['styles-watch']);
     gulp.watch("src/scripts/**/*.js", ['scripts-watch']);
     gulp.watch(['src/templates/**/*.html','src/data/*.json'],['twig-watch']);
 });
