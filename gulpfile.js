@@ -8,6 +8,7 @@ var fs = require('fs'),
     concat = require('gulp-concat'),
     data = require('gulp-data'),
     foreach = require('gulp-foreach'),
+    lazypipe = require('lazypipe')
     less = require('gulp-less'),
     minifycss = require('gulp-minify-css'),
     plumber = require('gulp-plumber'),
@@ -15,15 +16,12 @@ var fs = require('fs'),
     sass = require('gulp-sass'),
     twig = require('gulp-twig'),
     uglify = require('gulp-uglify'),
-    runSequence = require('run-sequence'),
-    lazypipe = require('lazypipe')
-
-    flags = {
-        preprocessor: 'less'
-    }
+    minimist = require('minimist'),
+    runSequence = require('run-sequence')
 ;
 
 
+/* BrowserSync */
 gulp.task('browser-sync', function() {
     browserSync.init({
         server: {
@@ -38,6 +36,12 @@ gulp.task('bs-reload', function () {
 
 
 /* Styles */
+var knownOptions = { // CLI support
+  string: 'p',
+  default: { p: process.env.NODE_ENV || 'less' }
+};
+var options = minimist(process.argv.slice(2), knownOptions);
+
 var mulchCompiledStyles = lazypipe()
     .pipe(concat, 'all.min.css')
     .pipe(minifycss)
@@ -86,24 +90,15 @@ gulp.task('styles-scss', function() { // sass (choose by running 'gulp sass mulc
         .pipe(sass())
         .pipe(mulchCompiledStyles())
 });
-gulp.task('css', function () {
-    flags.preprocessor = 'css'
-});
-gulp.task('sass', function () {
-    flags.preprocessor = 'sass'
-});
-gulp.task('scss', function () {
-    flags.preprocessor = 'scss'
-});
 gulp.task('styles', function() {
-    if ( flags.preprocessor == 'css' ) {
-        runSequence('styles-css')
-    } else if ( flags.preprocessor == 'sass' ) {
-        runSequence('styles-sass')
-    } else if (flags.preprocessor == 'scss') {
-        runSequence('styles-sass')
-    } else {
+    if ( options.p == 'less' ) {
         runSequence('styles-less')
+    } else if ( options.p == 'scss') {
+        runSequence('styles-scss')
+    } else if ( options.p == 'sass' ) {
+        runSequence('styles-sass')
+    } else if ( options.p == 'css' ) {
+        runSequence('styles-css')
     }
 });
 gulp.task('styles-watch',['styles'],browserSync.reload);
