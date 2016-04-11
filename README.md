@@ -60,7 +60,12 @@ Each sub-task is available via gulp if you wish to run them independently. They 
 * **mulch** - Compiles all assets, launches BrowserSync and then watches files for changes
 
 ###Options
-These commands are pseudo-options. Run just one, before **mulch** (`gulp option mulch`)
-* **css** - Tells mulch to use src/styles/all.css
-* **sass** - Tells mulch to use src/styles/all.sass
-* **scss** - Tells mulch to use src/styles/all.scss
+* `-P`, `--preprocessor`
+
+	Specify a CSS preprocessor. Supported values are
+	* *css* - Mulch will use src/styles/all.css
+	* ***less*** (default) - Much will use src/styles/all.less
+	* *sass* - Mulch will use src/styles/all.sass
+	* *scss* - Mulch will use src/styles/all.scss
+
+e.g. `gulp mulch -P scss`
