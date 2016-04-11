@@ -20,6 +20,7 @@
     "browser-sync": "^2.10.0",
     "glob": "^7.0.3",
     "gulp": "^3.9.0",
+    "gulp-command": "^0.1.2",
     "gulp-concat": "^2.6.0",
     "gulp-data": "^1.2.1",
     "gulp-foreach": "^0.1.0",
@@ -31,7 +32,6 @@
     "gulp-twig": "^0.5.0",
     "gulp-uglify": "^1.5.1",
     "lazypipe": "^1.0.1",
-    "minimist": "^1.2.0",
     "run-sequence": "^1.1.5"
   }
 }

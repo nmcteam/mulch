@@ -16,9 +16,9 @@ var fs = require('fs'),
     sass = require('gulp-sass'),
     twig = require('gulp-twig'),
     uglify = require('gulp-uglify'),
-    minimist = require('minimist'),
     runSequence = require('run-sequence')
 ;
+var gulpCommand = require('gulp-command')(gulp);
 
 
 /* BrowserSync */
@@ -29,18 +29,13 @@ gulp.task('browser-sync', function() {
         }
     })
 });
-
 gulp.task('bs-reload', function () {
    browserSync.reload();  
 });
 
 
 /* Styles */
-var knownOptions = { // CLI support
-  string: 'p',
-  default: { p: process.env.NODE_ENV || 'less' }
-};
-var options = minimist(process.argv.slice(2), knownOptions);
+gulp.option(null, '-P, --preprocessor', 'CSS preprocessor');
 
 var mulchCompiledStyles = lazypipe()
     .pipe(concat, 'all.min.css')
@@ -91,13 +86,13 @@ gulp.task('styles-scss', function() { // sass (choose by running 'gulp sass mulc
         .pipe(mulchCompiledStyles())
 });
 gulp.task('styles', function() {
-    if ( options.p == 'less' ) {
+    if ( !this.flags.preprocessor || this.flags.preprocessor == 'less') {
         runSequence('styles-less')
-    } else if ( options.p == 'scss') {
+    } else if ( this.flags.preprocessor == 'scss') {
         runSequence('styles-scss')
-    } else if ( options.p == 'sass' ) {
+    } else if ( this.flags.preprocessor == 'sass' ) {
         runSequence('styles-sass')
-    } else if ( options.p == 'css' ) {
+    } else if ( this.flags.preprocessor == 'css' ) {
         runSequence('styles-css')
     }
 });
