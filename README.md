@@ -42,7 +42,7 @@ This folder can contain any number of valid json files. These will be made avail
 
 ### Styles Folder
 
-The target file will be the top-level all.less, all.scss, or all.sass. This can @include any other files you wish to use. By default (`gulp mulch`), all.less will be used; override this by running `gulp sass mulch` or `gulp scss mulch`.
+The target file will be the top-level all.css, all.less (default), all.sass, or all.scss. This can @include any other files you wish to use. By default (`gulp mulch`), all.less will be used; override this by running `gulp css mulch`, or `gulp sass mulch`, or `gulp scss mulch`.
 
 ### Scripts Folder
 
@@ -56,10 +56,11 @@ Each sub-task is available via gulp if you wish to run them independently. They 
 * **twig** - Compiles all json data files, and then compiles all twig templates
 * **styles** - Compiles stylesheet files
 * **scripts** - Compiles all scripts
-* **mulch-compile** - Compiles all assets in the correct order (less, scripts, twig). Useful if you're using this recipe without BrowserSync
+* **mulch-compile** - Compiles all assets in the correct order (styles, scripts, twig). Useful if you're using this recipe without BrowserSync
 * **mulch** - Compiles all assets, launches BrowserSync and then watches files for changes
 
 ###Options
 These commands are pseudo-options. Run just one, before **mulch** (`gulp option mulch`)
+* **css** - Tells mulch to use src/styles/all.css
 * **sass** - Tells mulch to use src/styles/all.sass
-* **sass** - Tells mulch to use src/styles/all.scss
+* **scss** - Tells mulch to use src/styles/all.scss
