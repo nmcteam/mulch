@@ -1,4 +1,4 @@
-*Note* This project is in a very early state. It works great as-is since it's a dev tool, but we would love contributions/suggestions to make it work even better.
+*Note* This project works great as-is since it's a dev tool, but we would love contributions/suggestions to make it work even better.
 
 # Mulch
 
