@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     fs = require('fs'),
     browserSync = require('browser-sync'),
     glob = require('glob'),
+    changed = require('gulp-changed'),
     cleancss = require('gulp-clean-css'),
     concat = require('gulp-concat'),
     data = require('gulp-data'),
@@ -88,6 +89,7 @@ gulp.task('images', ['images-compress'], function() {
 });
 gulp.task('images-compress', function(){
     return gulp.src('src/images/*')
+        .pipe(changed('compiled/images'))
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [
