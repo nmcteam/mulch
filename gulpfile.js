@@ -1,18 +1,19 @@
 // Requires
 var gulp = require('gulp'),
+
     fs = require('fs'),
+    browserSync = require('browser-sync'),
     glob = require('glob'),
-    path = require('path'),
+    cleancss = require('gulp-clean-css'),
+    concat = require('gulp-concat'),
     data = require('gulp-data'),
+    foreach = require('gulp-foreach'),
+    less = require('gulp-less'),
     plumber = require('gulp-plumber'),
     rename = require('gulp-rename'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    cleancss = require('gulp-clean-css'),
-    less = require('gulp-less'),
     twig = require('gulp-twig'),
-    foreach = require('gulp-foreach'),
-    browserSync = require('browser-sync');
+    uglify = require('gulp-uglify'),
+    path = require('path');
 
 
 gulp.task('browser-sync', function() {
