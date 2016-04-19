@@ -30,7 +30,7 @@ For as long as you leave this process running, all of your project assets will b
 There are two main folders in the project:
 
 * src - This holds all of your source files. Some sample ones are in place.
-* compiled - Once you execute mulch this will be created and it holds all of the compiled assets and html pages. This is also where BrowserSync looks to serve content. If you need images, you'll need to put them in here.
+* compiled - Once you execute mulch this will be created and it holds all of the compiled assets and html pages. This is also where BrowserSync looks to serve content.
 
 ### Twig Structure
 
@@ -41,7 +41,7 @@ The most interesting folder in src is "templates". This is where all the twig te
 This folder in src can contain any number of valid json files. These will be made available to all twig templates indexed against their filename. So a file named "foo.json" would be available in the templates with {{ foo }}. This is a helpful way to inject/use some data from a project you are mocking up.
 
 ### Images Folder
-Project images go in src/images. They will be automatically minified, and this folder will be mirrored in compiled/images. (This duplication makes the project larger, but it also means your entire source is in src.)
+Images go in src/images. They will be automatically minified, and this folder will be mirrored in compiled/images. (This duplication makes the project larger, but it also means your entire source is in src.)
 
 ### LESS Folder
 
