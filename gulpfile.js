@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     cleancss = require('gulp-clean-css'),
     concat = require('gulp-concat'),
     data = require('gulp-data'),
+    dirSync = require('gulp-directory-sync'),
     foreach = require('gulp-foreach'),
     less = require('gulp-less'),
     plumber = require('gulp-plumber'),
@@ -73,6 +74,16 @@ gulp.task('twig',function(){
 });
 gulp.task('twig-watch',['twig'],browserSync.reload);
 
+/* Images */
+gulp.task('images', function(){
+    return gulp.src('')
+        .pipe(plumber({
+          errorHandler: function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }}))
+        .pipe(dirSync('src/images','compiled/images'))
+});
 
 /* Scripts */
 gulp.task('scripts', function(){
@@ -90,10 +101,11 @@ gulp.task('scripts-watch',['scripts'],browserSync.reload);
 
 
 /* Mulch */
-gulp.task('mulch-compile',['less','scripts','twig']);
+gulp.task('mulch-compile',['less','scripts','twig','images']);
 
 gulp.task('mulch',['mulch-compile','browser-sync'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
     gulp.watch("src/scripts/**/*.js", ['scripts-watch']);
     gulp.watch(['src/templates/**/*.html','src/data/*.json'],['twig-watch']);
+    gulp.watch('src/images/**/*', ['images']);
 });
