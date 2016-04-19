@@ -77,8 +77,17 @@ gulp.task('twig',function(){
 gulp.task('twig-watch',['twig'],browserSync.reload);
 
 /* Images */
-gulp.task('images', ['images-sync'], function() {
-    return gulp.src('compiled/images/*')
+gulp.task('images', ['images-compress'], function() {
+    return gulp.src('')
+        .pipe(plumber({
+          errorHandler: function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }}))
+        .pipe(dirSync('src/images','compiled/images'))
+});
+gulp.task('images-compress', function(){
+    return gulp.src('src/images/*')
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [
@@ -87,16 +96,7 @@ gulp.task('images', ['images-sync'], function() {
             ],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest('compiled/images'));
-});
-gulp.task('images-sync', function(){
-    return gulp.src('')
-        .pipe(plumber({
-          errorHandler: function (error) {
-            console.log(error.message);
-            this.emit('end');
-        }}))
-        .pipe(dirSync('src/images','compiled/images'))
+        .pipe(gulp.dest('src/images'));
 });
 
 /* Scripts */
