@@ -1,0 +1,1 @@
+Mulch with throw an error if /src/images is missing. This file is included to make sure the directory is included in the starting Mulch repo
