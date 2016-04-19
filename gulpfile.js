@@ -9,11 +9,13 @@ var gulp = require('gulp'),
     data = require('gulp-data'),
     dirSync = require('gulp-directory-sync'),
     foreach = require('gulp-foreach'),
+    imagemin = require('gulp-imagemin'),
     less = require('gulp-less'),
     plumber = require('gulp-plumber'),
     rename = require('gulp-rename'),
     twig = require('gulp-twig'),
     uglify = require('gulp-uglify'),
+    pngquant = require('imagemin-pngquant'),
     path = require('path');
 
 
@@ -75,7 +77,19 @@ gulp.task('twig',function(){
 gulp.task('twig-watch',['twig'],browserSync.reload);
 
 /* Images */
-gulp.task('images', function(){
+gulp.task('images', ['images-sync'], function() {
+    return gulp.src('compiled/images/*')
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [
+                {removeViewBox: false},
+                {cleanupIDs: false}
+            ],
+            use: [pngquant()]
+        }))
+        .pipe(gulp.dest('compiled/images'));
+});
+gulp.task('images-sync', function(){
     return gulp.src('')
         .pipe(plumber({
           errorHandler: function (error) {
