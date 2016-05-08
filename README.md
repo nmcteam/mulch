@@ -42,7 +42,7 @@ This folder can contain any number of valid json files. These will be made avail
 
 ### Styles Folder
 
-The target file will be the top-level all.css, all.less (default), all.sass, or all.scss. This can @include any other files you wish to use. By default (`gulp mulch`), all.less will be used; override this by running `gulp css mulch`, or `gulp sass mulch`, or `gulp scss mulch`.
+The target file will be the top-level all.css, all.less (default), all.sass, or all.scss. This can @include any other files you wish to use. By default (`gulp mulch`), all.less will be used; override this by running `gulp mulch --preprocessor css`, or `gulp mulch --preprocessor sass`, or `gulp mulch --preprocessor scss` (you can also use the shortcut `-P` in place of `--preprocessor`).
 
 ### Scripts Folder
 
