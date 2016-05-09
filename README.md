@@ -34,7 +34,7 @@ There are two main folders in the project:
 
 ### Twig Structure
 
-The most interesting folder in src is "templates". This is where all the twig templates go. Inside this directory is a "urls" folder. Every template in this folder will be treated as an accessible URL by BrowserSync once things are compiled. So if you want an /about.html page, create "templates/urls/about.html". It also uses subfolders correctly so "templates/urls/about/team.html" will show up at /about/team.html.
+The most interesting folder in src is "templates". This is where all the twig templates go. Inside this directory is a "urls" folder. Every template in this folder will be treated as an accessible URL by BrowserSync once things are compiled. So if you want an /about.html page, create "templates/urls/about.html". It also uses subfolders correctly so "templates/urls/about/team.html" will show up at /about/team.html. You can exclude files and entire directories from the final compilation by putting a hyphen ('-') at the start of the file/directory name (for example, "templates/urls/-partial.html").
 
 ### Data Folder
 
