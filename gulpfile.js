@@ -57,7 +57,7 @@ function getJsonData (file, cb) {
     });
 }
 gulp.task('twig',function(){
-    return gulp.src('src/templates/urls/**/*.html')
+    return gulp.src(['src/templates/urls/**/[^-]*.html','!src/templates/urls/**/-*/**'])
         .pipe(plumber({
           errorHandler: function (error) {
             console.log(error.message);
