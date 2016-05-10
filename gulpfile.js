@@ -57,7 +57,7 @@ function getJsonData (file, cb) {
     });
 }
 gulp.task('twig',function(){
-    return gulp.src('src/templates/urls/**/*.html')
+    return gulp.src('src/templates/urls/**/*')
         .pipe(plumber({
           errorHandler: function (error) {
             console.log(error.message);
@@ -94,5 +94,5 @@ gulp.task('mulch-compile',['less','scripts','twig']);
 gulp.task('mulch',['mulch-compile','browser-sync'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
     gulp.watch("src/scripts/**/*.js", ['scripts-watch']);
-    gulp.watch(['src/templates/**/*.html','src/data/*.json'],['twig-watch']);
+    gulp.watch(['src/templates/**/*','src/data/*.json'],['twig-watch']);
 });
