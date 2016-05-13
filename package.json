@@ -27,7 +27,7 @@
     "gulp-less": "^3.0.5",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-twig": "^0.5.0",
+    "gulp-twig": "olets/gulp-twig.git#update-dependencies",
     "gulp-uglify": "^1.5.1"
   }
 }
