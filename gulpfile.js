@@ -120,7 +120,15 @@ gulp.task('scripts-watch',['scripts'],browserSync.reload);
 /* Mulch */
 gulp.task('mulch-compile',['less','scripts','twig','images']);
 
-gulp.task('mulch',['mulch-compile','browser-sync'],function(){
+gulp.task('mulch-clean', function(){
+    del('compiled/')
+});
+
+gulp.task('mulch-process', function(){
+    runSequence('mulch-clean','mulch-compile','browser-sync');
+});
+
+gulp.task('mulch',['mulch-compile'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
     gulp.watch("src/scripts/**/*.js", ['scripts-watch']);
     gulp.watch(['src/templates/**/*.html','src/data/*.json'],['twig-watch']);
