@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     cleancss = require('gulp-clean-css'),
     concat = require('gulp-concat'),
     data = require('gulp-data'),
+    del = require('del'),
     dirSync = require('gulp-directory-sync'),
     foreach = require('gulp-foreach'),
     imagemin = require('gulp-imagemin'),
@@ -16,8 +17,8 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     twig = require('gulp-twig'),
     uglify = require('gulp-uglify'),
-    pngquant = require('imagemin-pngquant'),
-    path = require('path');
+    path = require('path'),
+    runSequence = require('run-sequence');
 
 
 gulp.task('browser-sync', function() {
