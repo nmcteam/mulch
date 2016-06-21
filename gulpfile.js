@@ -137,5 +137,8 @@ gulp.task('mulch',['mulch-process'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
     gulp.watch("src/scripts/**/*.js", ['scripts-watch']);
     gulp.watch(['src/templates/**/*.html','src/data/*.json'],['twig-watch']);
-    gulp.watch('src/images/**/*', ['images']);
+    var watchImages = gulp.watch('src/images/*', ['images']);
+    watchImages.on('change', function(ev) {
+        del(path.relative('', ev.path).replace('src/images','compiled/images'));
+    });
 });
