@@ -97,13 +97,14 @@ gulp.task('images-compress', function(){
         .pipe(gulp.dest('src/images'));
 });
 gulp.task('images', ['images-compress'], function() {
-    return gulp.src('')
+    return gulp.src('src/images/*')
         .pipe(plumber({
           errorHandler: function (error) {
             console.log(error.message);
             this.emit('end');
         }}))
-        .pipe(dirSync('src/images','compiled/images'))
+        .pipe(changed('compiled/images'))
+        .pipe(gulp.dest('compiled/images'))
 });
 
 /* Scripts */
