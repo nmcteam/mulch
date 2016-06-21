@@ -79,6 +79,23 @@ gulp.task('twig',function(){
 gulp.task('twig-watch',['twig'],browserSync.reload);
 
 /* Images */
+gulp.task('images-compress', function(){
+    return gulp.src('src/images/*')
+        .pipe(plumber({
+          errorHandler: function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }}))
+        .pipe(changed('compiled/images'))
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [
+                {removeViewBox: false},
+                {cleanupIDs: false}
+            ]
+        }))
+        .pipe(gulp.dest('src/images'));
+});
 gulp.task('images', ['images-compress'], function() {
     return gulp.src('')
         .pipe(plumber({
@@ -87,19 +104,6 @@ gulp.task('images', ['images-compress'], function() {
             this.emit('end');
         }}))
         .pipe(dirSync('src/images','compiled/images'))
-});
-gulp.task('images-compress', function(){
-    return gulp.src('src/images/*')
-        .pipe(changed('compiled/images'))
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [
-                {removeViewBox: false},
-                {cleanupIDs: false}
-            ],
-            use: [pngquant()]
-        }))
-        .pipe(gulp.dest('src/images'));
 });
 
 /* Scripts */
@@ -128,7 +132,7 @@ gulp.task('mulch-process', function(){
     runSequence('mulch-clean','mulch-compile','browser-sync');
 });
 
-gulp.task('mulch',['mulch-compile'],function(){
+gulp.task('mulch',['mulch-process'],function(){
     gulp.watch("src/less/**/*.less", ['less']);
     gulp.watch("src/scripts/**/*.js", ['scripts-watch']);
     gulp.watch(['src/templates/**/*.html','src/data/*.json'],['twig-watch']);
