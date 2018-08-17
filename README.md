@@ -2,7 +2,7 @@
 
 # Mulch
 
-Mulch is a gulp recipe for compiling twig templates and preprocessor styles and then serving the compiled site while developing. It features Twig (twig.js, with designed-in support for JSON data retrieval), LESS/SASS, CSS minification, JS compilation and BrowserSync. It's a great starting point for frontend projects that run on PHP backends that use Twig. (Craft CMS, Drupal 8, Symfony, HiFi, etc). It makes it easy to develop the frontend of those projects without running a whole server. Because it has BrowserSync, as soon as changes are made to your source files, those are instantly reflected in the browser without the need to click refresh!
+Mulch is a gulp recipe for compiling twig templates and preprocessor styles and then serving the compiled site while developing. It features Twig (twig.js, with designed-in support for JSON data retrieval), SASS, CSS minification, JS compilation and BrowserSync. It's a great starting point for frontend projects that run on PHP backends that use Twig. (Craft CMS, Drupal 8, Symfony, HiFi, etc). It makes it easy to develop the frontend of those projects without running a whole server. Because it has BrowserSync, as soon as changes are made to your source files, those are instantly reflected in the browser without the need to click refresh!
 
 ## How to install
 
@@ -40,9 +40,9 @@ The most interesting folder in src is "templates". This is where all the twig te
 
 This folder can contain any number of valid json files. These will be made available to all twig templates indexed against their filename. So a file named "foo.json" would be available in the templates with {{ foo }}. This is a helpful way to inject/use some data from a project you are mocking up.
 
-### LESS Folder
+### SCSS Folder
 
-The target file will be the top-level all.less. This can @include any other files you wish to use.
+The target file will be the top-level packed.scss. This includes many other files you wish to use.
 
 ### Scripts Folder
 
@@ -54,7 +54,7 @@ Each sub-task is available via gulp if you wish to run them independently. They 
 
 * **browser-sync** - Launches BrowserSync
 * **twig** - Compiles all json data files, and then compiles all twig templates
-* **less** - Compiles LESS files
+* **sass** - Compiles SCSS files
 * **scripts** - Compiles all scripts
-* **mulch-compile** - Compiles all assets in the correct order (less, scripts, twig). Useful if you're using this recipe without BrowserSync
+* **mulch-compile** - Compiles all assets in the correct order (sass, scripts, twig). Useful if you're using this recipe without BrowserSync
 * **mulch** - Compiles all assets, launches BrowserSync and then watches files for changes
