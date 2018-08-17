@@ -9,9 +9,9 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     cleancss = require('gulp-clean-css'),
-    less = require('gulp-less'),
+    sass = require('gulp-sass'),
     twig = require('gulp-twig'),
-    foreach = require('gulp-foreach'),
+    flatmap = require('gulp-flatmap'),
     browserSync = require('browser-sync');
 
 
@@ -24,18 +24,18 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('bs-reload', function () {
-   browserSync.reload();  
+   browserSync.reload();
 });
 
-/* LESS */
-gulp.task('less', function(){
-  gulp.src(['src/less/all.less'])
+/* SCSS */
+gulp.task('sass', function(){
+  gulp.src(['src/scss/packed.scss'])
     .pipe(plumber({
       errorHandler: function (error) {
         console.log(error.message);
         this.emit('end');
     }}))
-    .pipe(less())
+    .pipe(sass())
     .pipe(concat('all.min.css'))
     .pipe(cleancss())
     .pipe(gulp.dest('compiled/styles/'))
@@ -64,7 +64,7 @@ gulp.task('twig',function(){
             this.emit('end');
         }}))
         .pipe(data(getJsonData))
-        .pipe(foreach(function(stream,file){
+        .pipe(flatmap(function(stream,file){
             return stream
                 .pipe(twig())
         }))
@@ -89,10 +89,10 @@ gulp.task('scripts-watch',['scripts'],browserSync.reload);
 
 
 /* Mulch */
-gulp.task('mulch-compile',['less','scripts','twig']);
+gulp.task('mulch-compile',['sass','scripts','twig']);
 
 gulp.task('mulch',['mulch-compile','browser-sync'],function(){
-    gulp.watch("src/less/**/*.less", ['less']);
+    gulp.watch("src/scss/**/*.scss", [ 'sass' ]);
     gulp.watch("src/scripts/**/*.js", ['scripts-watch']);
     gulp.watch(['src/templates/**/*','src/data/*.json'],['twig-watch']);
 });
